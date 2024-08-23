@@ -21,12 +21,24 @@ class App:
         pyxel.init(160, 120, title="Gamble Game")
         pyxel.load("assets.pyxres")
         pyxel.mouse(True)
+        self.players_turn = True
+        self.player_max_hp = 100
+        self.player_current_hp = 100
+        self.enemy_max_hp = 100
+        self.enemy_current_hp = 100
         self.player_dices_amount = 5
         self.player_dices = {}
         self.selected_dices = {}
+        self.enemy_dice = {}
         for i in range(self.player_dices_amount):
             self.player_dices[i] = random.randint(1,6)
-            self.selected_dices[i] = True
+            self.selected_dices[i] = False
+
+        for i in range(self.player_dices_amount):
+            self.enemy_dice[i] = random.randint(1,6)
+            self.selected_dices[i] = False
+
+        self.reset_dices()
 
 
         pyxel.run(self.update, self.draw)
@@ -34,6 +46,15 @@ class App:
     def update(self):
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
+        if (self.players_turn == False):
+            self.players_turn = True
+            enemy_sum = 0
+            for i in range(self.player_dices_amount):
+                self.enemy_dice[i] = random.randint(1,6)
+                enemy_sum += self.enemy_dice[i]
+                self.selected_dices[i] = False
+            self.player_current_hp -= enemy_sum
+                
         self.dice_selector()
         self.handle_buttons()
 
@@ -54,6 +75,14 @@ class App:
                 # Draw selection mark
                 pyxel.rectb(DICE_DRAWING_AREA[0] + i*(16 + DICE_SPACING[0]),DICE_DRAWING_AREA[1], 16, 16, 8)
 
+        for i in range(self.player_dices_amount):
+            dice_result = self.enemy_dice[i]
+            dice_sprite = dice_sprites[dice_result]
+            pyxel.blt(DICE_DRAWING_AREA[0] + i*(16 + DICE_SPACING[0]),DICE_DRAWING_AREA[1] - 90, 0, dice_sprite[0], dice_sprite[1], 16, 16)
+            if (self.selected_dices[i]):
+                # Draw selection mark
+                pyxel.rectb(DICE_DRAWING_AREA[0] + i*(16 + DICE_SPACING[0]),DICE_DRAWING_AREA[1], 16, 16, 8)
+
     def dice_selector(self):
         pass
 
@@ -65,6 +94,10 @@ class App:
         pyxel.rect(PASS_BUTTON[0], PASS_BUTTON[1], PASS_BUTTON[2], PASS_BUTTON[3], 14)
         pyxel.rectb(PASS_BUTTON[0], PASS_BUTTON[1], PASS_BUTTON[2], PASS_BUTTON[3], 7)
         pyxel.text(PASS_BUTTON[0]+3, PASS_BUTTON[1]+3, "PASS", 7)
+
+        pyxel.text(SPIN_DICES_BUTTON[0], SPIN_DICES_BUTTON[1]- 10, f"Player HP: {self.player_current_hp}/{self.player_max_hp}", 8)
+
+        pyxel.text(SPIN_DICES_BUTTON[0], SPIN_DICES_BUTTON[1]- 40, f"Enemy HP: {self.enemy_current_hp}/{self.enemy_max_hp}", 8)
 
     def check_buttton_area(self, button, mouse):
         if (button[0] <= mouse[0] <=button[0]+button[2] and button[1]<= mouse[1] <= button[1]+button[3]):
@@ -101,10 +134,25 @@ class App:
                 pass
 
             else:
+                self.reset_dices()
                 # Fail
                 pass
             
         if self.check_buttton_area(PASS_BUTTON, (mouse_x, mouse_y)):
+            # Attack enemy
+            # Deal damage equal to dices
+            new_sum = 0
+            for i in range(self.player_dices_amount):
+                new_sum += self.player_dices[i]
+            self.enemy_current_hp -= new_sum
+            self.reset_dices()
+            self.players_turn = False
+            pass
+
+    def reset_dices(self, player=True):
+        for i in range(self.player_dices_amount):
+            self.player_dices[i] = 1
+
 
     def draw_board(self):
         pyxel.rect(0,0,160,120,3)
