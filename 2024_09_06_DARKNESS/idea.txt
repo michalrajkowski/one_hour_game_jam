@@ -1,0 +1,13 @@
+Game idea
+THEME: Darkness
+
+Character is moving, repells dark particles, you have to go for torches?
+
+-  Dark Particles moving chaoticly on the screen?
+- Repells them with light?
+- collect something?
+- refuel torch?
+- if run out of fuel - lose
+
+
+Darkness monsters attack the middle of the screen?
