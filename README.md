@@ -6,9 +6,9 @@ One Hour Game Jam is an event focused on making a game in just 1 hour from the m
 
 ## Table of Contents
 
-- [Gamble (2024-08-23)](#gamble-2024-08-23) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2024_08_23_GAMBLE.game)
-- [Darkness (2024-09-06)](#darkness-2024-09-06) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2024_09_06_DARKNESS.game)
-- [Carousel (2025-01-10)](#carousel-2025-01-10) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2025_01_10_CAROUSEL.game)
+- [Gamble (2024-08-23)](#gamble-2024-08-23) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.2024_08_23_GAMBLE.game)
+- [Darkness (2024-09-06)](#darkness-2024-09-06) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.2024_09_06_DARKNESS.game)
+- [Carousel (2025-01-10)](#carousel-2025-01-10) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.2025_01_10_CAROUSEL.game)
 
 ## Gamble (2024-08-23)
 

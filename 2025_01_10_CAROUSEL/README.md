@@ -4,6 +4,6 @@
 
 ## Description
 
-[\[CLICK ME\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2025_01_10_CAROUSEL.game) to play the game.
+[\[CLICK ME\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.2025_01_10_CAROUSEL.game) to play the game.
 
 Simple platformer. Jump on the top of carousel horses and try to not fall down as long as possible. Each second, the carousel speeds up and the game gets harder.
