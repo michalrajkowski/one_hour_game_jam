@@ -6,8 +6,9 @@ One Hour Game Jam is an event focused on making a game in just 1 hour from the m
 
 ## Table of Contents
 
-- [Gamble (2024-08-23)](#gamble-2024-08-23)
-- [Darkness (2024-09-06)](#darkness-2024-09-06)
+- [Gamble (2024-08-23)](#gamble-2024-08-23) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2024_08_23_GAMBLE.game)
+- [Darkness (2024-09-06)](#darkness-2024-09-06) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2024_09_06_DARKNESS.game)
+- [Carousel (2025-01-10)](#carousel-2025-01-10) [\[PLAY\]](https://kitao.github.io/pyxel/wasm/launcher/?play=michalrajkowski.one_hour_game_jam.main.2025_01_10_CAROUSEL.game)
 
 ## Gamble (2024-08-23)
 
@@ -24,3 +25,11 @@ Gamble is a dice game with combat mechanics. During your turn, you select the di
 ### Description
 
 Point and click game. You need to find the lost children in the dark and help them return home. Your mouse emits light that push away darkness particles and helps you to see in the dark. Click on the kids with LMB to get points. Your light radius decrease over time, collect fuel to refuel your torch.
+
+## Carousel (2025-01-10)
+
+![Carousel Game Screenshot](https://github.com/michalrajkowski/one_hour_game_jam/blob/main/2025_01_10_CAROUSEL/carousel.gif)
+
+### Description
+
+Simple platformer. Jump on the top of carousel horses and try to not fall down as long as possible. Each second, the carousel speeds up and the game gets harder.
