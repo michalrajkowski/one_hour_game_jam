@@ -1,0 +1,4 @@
+- mage in the middle of the screen?
+- You shoot incoming elements at you and can pixelize them???
+- seems good?
+- maybe some healthbar at the top and time survived / time to win?
