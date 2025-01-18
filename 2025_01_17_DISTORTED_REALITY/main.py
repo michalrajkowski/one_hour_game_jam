@@ -5,40 +5,82 @@ import random
 player_w = 16
 player_h = 16
 
+class Particle:
+    def __init__(self, x, y, vx, vy, life_time, color):
+        self.x = x
+        self.y = y
+        self.vx = vx
+        self.vy = vy
+        self.life_time = life_time
+        self.color = color
+
+    def update(self):
+        self.x += self.vx * (1 / 30) * 15
+        self.y += self.vy * (1 / 30) * 15
+        self.life_time -= 1 / 30
+
+    def draw(self):
+        if self.life_time > 0:
+            pyxel.circ(self.x, self.y, 2, self.color)
+
+    def is_dead(self):
+        return self.life_time <= 0
+
+
 class Meteorite:
-    def __init__(self, start_x=0, start_y=0, start_velocity = (0,0), start_r = 5):
-        self.elements = []
-        self.rotation = []
+    def __init__(self, start_x=0, start_y=0, start_velocity=(0, 0), start_r = 1):
         self.x = start_x
         self.y = start_y
         self.r = random.randint(3, 10)
         self.velocity = start_velocity
         self.dead = False
+        self.particles = []
 
     def update(self):
-        self.x += self.velocity[0] * 1/30
-        self.y += self.velocity[1] * 1/30
+        if not self.dead:
+            self.x += self.velocity[0] * (1 / 30)
+            self.y += self.velocity[1] * (1 / 30)
+        else:
+            self.particles = [p for p in self.particles if not p.is_dead()]
+            for particle in self.particles:
+                particle.update()
 
     def draw(self):
         if self.dead:
-            pyxel.circ(self.x, self.y, self.r, col=5)
+            for particle in self.particles:
+                particle.draw()
         else:
             pyxel.circ(self.x, self.y, self.r, col=4)
+
+    def die(self):
+        self.dead = True
+        self.spawn_particles()
+
+    def spawn_particles(self):
+        num_particles = random.randint(5*self.r, 10*self.r)
+        for _ in range(num_particles):
+            angle = random.uniform(0, 2 * math.pi)
+            speed = random.uniform(0.5, 2)
+            vx = speed * math.cos(angle)
+            vy = speed * math.sin(angle)
+            life_time = random.uniform(0.5, 1.5)
+            color = random.choice([7, 10, 8, 9])
+            self.particles.append(Particle(self.x, self.y, vx, vy, life_time, color))
 
     def is_touching_mouse(self):
         mouse_x, mouse_y = pyxel.mouse_x, pyxel.mouse_y
         mouse_r = 3
         distance = math.sqrt((self.x - mouse_x) ** 2 + (self.y - mouse_y) ** 2)
         return distance <= (self.r + mouse_r)
-    
+
     def is_touching_player(self):
-        player_x, player_y = 256//2, 256//2
-        mouse_r = 3
+        player_x, player_y = 256 // 2, 256 // 2
+        player_r = 3
         distance = math.sqrt((self.x - player_x) ** 2 + (self.y - player_y) ** 2)
-        return distance <= (self.r + mouse_r)
+        return distance <= (self.r + player_r)
 
     def __str__(self):
-        return f"Meteorite(Position: ({self.x:.2f}, {self.y:.2f}), Velocity: {self.velocity}, Radius: {self.r})"
+        return f"Meteorite(Position: ({self.x:.2f}, {self.y:.2f}), Radius: {self.r}, Dead: {self.dead})"
 
 
 class Game:
@@ -88,9 +130,9 @@ class Game:
             if meteorite.is_touching_mouse() and not meteorite.dead:
                 # Destroy meteorite!!
                 self.current_score +=1
-                meteorite.dead = True
+                meteorite.die()
             if meteorite.is_touching_player() and not meteorite.dead:
-                meteorite.dead = True
+                meteorite.die()
                 self.player_shield-=0.1*meteorite.r*100
 
         if self.player_shield <= 0.0:
@@ -107,11 +149,19 @@ class Game:
 
         # draw laser!
         if self.shooting == True:
-            pyxel.line(256//2, 256//2, pyxel.mouse_x, pyxel.mouse_y, col=8)
+            pyxel.line(256//2, 256//2, pyxel.mouse_x + random.randrange(-3, 3), pyxel.mouse_y + random.randrange(-3, 3), col=11)
+            pyxel.line(256//2, 256//2, pyxel.mouse_x + random.randrange(-3, 3), pyxel.mouse_y + random.randrange(-3, 3), col=14)
+            pyxel.line(256//2, 256//2, pyxel.mouse_x + random.randrange(-3, 3), pyxel.mouse_y + random.randrange(-3, 3), col=6)
 
         # Draw player
         pyxel.rect(256//2 - player_w//2, 256//2 - player_h//2, player_w, player_h, 2)
         pyxel.rect(256//2 - player_w//2, 256//2 - player_h//2 +4, player_w, 3, 3)
+        pyxel.rect(256//2 - player_w//2 + 3, 256//2 - player_h//2 +4, 4, 2, 7)
+        pyxel.rect(256//2 - player_w//2 + 5, 256//2 - player_h//2 +4, 2, 2, 0)
+
+        pyxel.rect(256//2 - player_w//2 + 10, 256//2 - player_h//2 +4, 4, 2, 7)
+        pyxel.rect(256//2 - player_w//2 + 12, 256//2 - player_h//2 +4, 2, 2, 0)
+
 
         # draw laser coursor under mouse?
         pyxel.circ(pyxel.mouse_x, pyxel.mouse_y, r=3, col=7)
